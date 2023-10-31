@@ -31,11 +31,13 @@ Vagrant.configure("2") do |config|
   config.vm.box = "hashicorp/bionic64"
   # Checkea las opciones aqui https://www.vagrantup.com/docs/networking/private_network
   config.vm.network "private_network", ip: "10.20.19.96"
+  config.vm.network "forwarded_port", guest: 22, host: 1234
   config.vm.box_version = "1.0.282"
   config.vm.synced_folder "./home-vagrant","/home/vagrant/document"
   config.vm.provider "virtualbox" do |vb|
     vb.name = "server-postgres"
     vb.memory = "2048"
+    vb.cpus = 4
   end
 
   config.vm.provision :shell, :inline => $script
